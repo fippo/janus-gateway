@@ -27,7 +27,7 @@ before_script:
  - wget https://github.com/cisco/libsrtp/archive/v2.0.0.tar.gz
  - tar xfv v2.0.0.tar.gz
  - cd libsrtp-2.0.0
- - ./configure --prefix=$HOME/srtp --enable-openssl
+ - ./configure --prefix=${HOME}/srtp --enable-openssl
  - make shared_library && sudo make install
  - cd ../janus-gateway
 
