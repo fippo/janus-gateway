@@ -1,0 +1,28 @@
+dist: trusty
+language: node_js
+node_js:
+- 6
+
+addons:
+  apt:
+    packages:
+      - build-essential 
+      - libmicrohttpd-dev
+      - libjansson-dev
+      - libnice-dev
+      - libssl-dev
+      - libsrtp-dev
+      - libsofia-sip-ua-dev
+      - libglib2.0-dev
+      - libopus-dev
+      - libogg-dev
+      - libcurl4-openssl-dev
+      - pkg-config
+      - gengetopt
+      - libtool
+      - automake
+
+script:
+  - sh autogen.sh
+  - ./configure --prefix=/opt/janus
+  - make
