@@ -2,6 +2,11 @@ dist: trusty
 sudo: false 
 language: node_js
 
+env:
+  global:
+    - CPPFLAGS=-I${HOME}/srtp/include
+    - LDFLAGS=-L${HOME}/srtp/lib
+
 addons:
   apt: 
     packages:
@@ -33,8 +38,6 @@ before_script:
  - cd ../janus-gateway
 
 script:
-  - CPPFLAGS=-I${HOME}/srtp/include
-  - LDFLAGS=-L${HOME}/srtp/lib
   - sh autogen.sh
   - ./configure
   - make
