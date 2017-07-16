@@ -28,7 +28,8 @@ before_script:
  - tar xfv v2.0.0.tar.gz
  - cd libsrtp-2.0.0
  - ./configure --prefix=${HOME}/srtp --enable-openssl
- - make shared_library && sudo make install
+ - make shared_library
+ - make install
  - cd ../janus-gateway
 
 script:
