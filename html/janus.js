@@ -2495,7 +2495,9 @@ function Janus(gatewayCallbacks) {
 			]});
 		}
 		config.pc.createAnswer(
-			function(answer) {
+            mediaConstraints
+        ).then(
+            function(answer) {
 				Janus.debug(answer);
 				Janus.log("Setting local description");
 				if(sendVideo && simulcast) {
@@ -2524,7 +2526,9 @@ function Janus(gatewayCallbacks) {
 					"sdp": answer.sdp
 				};
 				callbacks.success(jsep);
-			}, callbacks.error, mediaConstraints);
+			},
+            callbacks.error
+        );
 	}
 
 	function sendSDP(handleId, callbacks) {
