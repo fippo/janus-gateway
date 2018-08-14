@@ -1665,28 +1665,31 @@ function Janus(gatewayCallbacks) {
 			createOffer(handleId, media, callbacks);
 		} else {
 			config.pc.setRemoteDescription(
-					new RTCSessionDescription(jsep),
-					function() {
-						Janus.log("Remote description accepted!");
-						config.remoteSdp = jsep.sdp;
-						// Any trickle candidate we cached?
-						if(config.candidates && config.candidates.length > 0) {
-							for(var i in config.candidates) {
-								var candidate = config.candidates[i];
-								Janus.debug("Adding remote candidate:", candidate);
-								if(!candidate || candidate.completed === true) {
-									// end-of-candidates
-									config.pc.addIceCandidate();
-								} else {
-									// New candidate
-									config.pc.addIceCandidate(new RTCIceCandidate(candidate));
-								}
-							}
-							config.candidates = [];
-						}
-						// Create the answer now
-						createAnswer(handleId, media, callbacks);
-					}, callbacks.error);
+                new RTCSessionDescription(jsep)
+            ).then(
+                function() {
+                    Janus.log("Remote description accepted!");
+                    config.remoteSdp = jsep.sdp;
+                    // Any trickle candidate we cached?
+                    if(config.candidates && config.candidates.length > 0) {
+                        for(var i in config.candidates) {
+                            var candidate = config.candidates[i];
+                            Janus.debug("Adding remote candidate:", candidate);
+                            if(!candidate || candidate.completed === true) {
+                                // end-of-candidates
+                                config.pc.addIceCandidate();
+                            } else {
+                                // New candidate
+                                config.pc.addIceCandidate(new RTCIceCandidate(candidate));
+                            }
+                        }
+                        config.candidates = [];
+                    }
+                    // Create the answer now
+                    createAnswer(handleId, media, callbacks);
+                },
+                callbacks.error
+            );
 		}
 	}
 
@@ -2165,28 +2168,31 @@ function Janus(gatewayCallbacks) {
 				return;
 			}
 			config.pc.setRemoteDescription(
-					new RTCSessionDescription(jsep),
-					function() {
-						Janus.log("Remote description accepted!");
-						config.remoteSdp = jsep.sdp;
-						// Any trickle candidate we cached?
-						if(config.candidates && config.candidates.length > 0) {
-							for(var i in config.candidates) {
-								var candidate = config.candidates[i];
-								Janus.debug("Adding remote candidate:", candidate);
-								if(!candidate || candidate.completed === true) {
-									// end-of-candidates
-									config.pc.addIceCandidate();
-								} else {
-									// New candidate
-									config.pc.addIceCandidate(new RTCIceCandidate(candidate));
-								}
-							}
-							config.candidates = [];
-						}
-						// Done
-						callbacks.success();
-					}, callbacks.error);
+                new RTCSessionDescription(jsep)
+            ).then(
+                function() {
+                    Janus.log("Remote description accepted!");
+                    config.remoteSdp = jsep.sdp;
+                    // Any trickle candidate we cached?
+                    if(config.candidates && config.candidates.length > 0) {
+                        for(var i in config.candidates) {
+                            var candidate = config.candidates[i];
+                            Janus.debug("Adding remote candidate:", candidate);
+                            if(!candidate || candidate.completed === true) {
+                                // end-of-candidates
+                                config.pc.addIceCandidate();
+                            } else {
+                                // New candidate
+                                config.pc.addIceCandidate(new RTCIceCandidate(candidate));
+                            }
+                        }
+                        config.candidates = [];
+                    }
+                    // Done
+                    callbacks.success();
+                },
+                callbacks.error
+            );
 		} else {
 			callbacks.error("Invalid JSEP");
 		}
