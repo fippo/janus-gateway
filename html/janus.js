@@ -2322,7 +2322,9 @@ function Janus(gatewayCallbacks) {
 			]});
 		}
 		config.pc.createOffer(
-			function(offer) {
+            mediaConstraints
+        ).then(
+            function(offer) {
 				Janus.debug(offer);
 				Janus.log("Setting local description");
 				if(sendVideo && simulcast) {
@@ -2351,7 +2353,9 @@ function Janus(gatewayCallbacks) {
 					"sdp": offer.sdp
 				};
 				callbacks.success(jsep);
-			}, callbacks.error, mediaConstraints);
+			},
+            callbacks.error
+        );
 	}
 
 	function createAnswer(handleId, media, callbacks) {
